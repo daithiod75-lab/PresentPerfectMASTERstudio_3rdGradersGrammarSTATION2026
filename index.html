@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Present Perfect Master Studio | 現在完了形 完全マスター</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #2563eb 100%);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(99,102,241,0.3);
+            border-radius: 4px;
+        }
+        .tab-btn.active {
+            border-bottom: 3px solid #6366f1;
+            color: #4f46e5;
+            font-weight: 700;
+        }
+        .chip {
+            user-select: none;
+            touch-action: manipulation;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+    <!-- Navigation Header -->
+    <header class="gradient-bg text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('overview')">
+                    <div class="p-2 bg-white/10 rounded-xl backdrop-blur-md">
+                        <i class="fa-solid fa-graduation-cap text-2xl text-amber-300"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-extrabold text-lg sm:text-xl tracking-tight leading-none">Present Perfect Master Studio</h1>
+                        <p class="text-xs text-indigo-100 font-medium">現在完了形・完了進行形 完全マスター学習スタジオ</p>
+                    </div>
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-2 text-xs">
+                    <span class="bg-white/20 px-3 py-1 rounded-full"><i class="fa-solid fa-book-open mr-1"></i> 中3 / 高1英語標準対応</span>
+                    <button onclick="toggleAudioGlobal()" id="audioToggleBtn" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold px-3 py-1.5 rounded-lg transition shadow-sm flex items-center gap-1.5">
+                        <i class="fa-solid fa-volume-high"></i> 音声読み上げ: ON
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab Buttons Bar -->
+            <nav class="flex space-x-1 sm:space-x-2 overflow-x-auto custom-scrollbar pb-1 pt-1 text-xs sm:text-sm font-medium border-t border-white/10">
+                <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn active px-3 py-2 text-white hover:text-indigo-200 transition whitespace-nowrap rounded-t-lg">
+                    <i class="fa-solid fa-compass mr-1"></i> 概要・基本ルール
+                </button>
+                <button onclick="switchTab('unit13')" id="tab-unit13" class="tab-btn px-3 py-2 text-white/80 hover:text-white transition whitespace-nowrap rounded-t-lg">
+                    <i class="fa-solid fa-check-double mr-1"></i> Unit 13: 完了・結果
+                </button>
+                <button onclick="switchTab('unit14')" id="tab-unit14" class="tab-btn px-3 py-2 text-white/80 hover:text-white transition whitespace-nowrap rounded-t-lg">
+                    <i class="fa-solid fa-star mr-1"></i> Unit 14: 経験
+                </button>
+                <button onclick="switchTab('unit15')" id="tab-unit15" class="tab-btn px-3 py-2 text-white/80 hover:text-white transition whitespace-nowrap rounded-t-lg">
+                    <i class="fa-solid fa-clock-rotate-left mr-1"></i> Unit 15: 継続＆進行形
+                </button>
+                <button onclick="switchTab('verbs')" id="tab-verbs" class="tab-btn px-3 py-2 text-white/80 hover:text-white transition whitespace-nowrap rounded-t-lg">
+                    <i class="fa-solid fa-bolt mr-1"></i> 活用表＆4秒スピード
+                </button>
+                <button onclick="switchTab('forsince')" id="tab-forsince" class="tab-btn px-3 py-2 text-white/80 hover:text-white transition whitespace-nowrap rounded-t-lg">
+                    <i class="fa-solid fa-bullseye mr-1"></i> for vs since 特訓
+                </button>
+                <button onclick="switchTab('worksheets')" id="tab-worksheets" class="tab-btn px-3 py-2 text-white/80 hover:text-white transition whitespace-nowrap rounded-t-lg bg-amber-400/20 text-amber-200">
+                    <i class="fa-solid fa-pen-to-square mr-1"></i> Unit 13-15 ワークシート
+                </button>
+                <button onclick="switchTab('thinking')" id="tab-thinking" class="tab-btn px-3 py-2 text-white/80 hover:text-white transition whitespace-nowrap rounded-t-lg">
+                    <i class="fa-solid fa-lightbulb mr-1"></i> 思考力・応用発信
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- ================= OVERVIEW TAB ================= -->
+        <section id="view-overview" class="tab-content block space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between border-b pb-4 mb-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-clock text-indigo-600"></i> 現在完了形（Present Perfect Tense）の全体像
+                        </h2>
+                        <p class="text-slate-600 text-sm mt-1">「過去と現在をつなぐ」英語独特の感覚をマスターしよう！</p>
+                    </div>
+                    <span class="bg-indigo-100 text-indigo-800 font-semibold text-xs px-3 py-1 rounded-full">基本公式: have / has + 過去分詞 (p.p.)</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-6">
+                    <div class="bg-indigo-50 border border-indigo-100 rounded-xl p-5 hover:shadow-md transition">
+                        <div class="w-10 h-10 bg-indigo-600 text-white rounded-lg flex items-center justify-center font-bold mb-3">1</div>
+                        <h3 class="font-bold text-indigo-900 text-lg mb-1">完了・結果 (Unit 13)</h3>
+                        <p class="text-sm text-slate-600 mb-2 font-medium">「〜してしまった」「〜したところだ」</p>
+                        <p class="text-xs text-slate-500">過去の動作が完了し、その結果が今に影響を与えている状態を表します。</p>
+                        <div class="mt-3 text-xs bg-white p-2 rounded border border-indigo-200 font-mono text-indigo-700">
+                            Keywords: already, just, yet
+                        </div>
+                    </div>
+
+                    <div class="bg-amber-50 border border-amber-100 rounded-xl p-5 hover:shadow-md transition">
+                        <div class="w-10 h-10 bg-amber-600 text-white rounded-lg flex items-center justify-center font-bold mb-3">2</div>
+                        <h3 class="font-bold text-amber-900 text-lg mb-1">経験 (Unit 14)</h3>
+                        <p class="text-sm text-slate-600 mb-2 font-medium">「今までに〜したことがある」</p>
+                        <p class="text-xs text-slate-500">生まれてから現在までの経験の回数や有無を問う・伝える時に使います。</p>
+                        <div class="mt-3 text-xs bg-white p-2 rounded border border-amber-200 font-mono text-amber-700">
+                            Keywords: ever, never, once, before
+                        </div>
+                    </div>
+
+                    <div class="bg-emerald-50 border border-emerald-100 rounded-xl p-5 hover:shadow-md transition">
+                        <div class="w-10 h-10 bg-emerald-600 text-white rounded-lg flex items-center justify-center font-bold mb-3">3</div>
+                        <h3 class="font-bold text-emerald-900 text-lg mb-1">継続 (Unit 15)</h3>
+                        <p class="text-sm text-slate-600 mb-2 font-medium">「（ずっと）〜し続けている」</p>
+                        <p class="text-xs text-slate-500">過去に始まった状態や動作が、現在までずっと続いていていることを表します。</p>
+                        <div class="mt-3 text-xs bg-white p-2 rounded border border-emerald-200 font-mono text-emerald-700">
+                            Keywords: for (+期間), since (+起点)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subject Verb Agreement Chart -->
+                <div class="bg-slate-100 rounded-xl p-5 mb-6">
+                    <h4 class="font-bold text-slate-800 text-base mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-indigo-600"></i> 主語による `have` と `has` の使い分け
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200 flex items-center justify-between">
+                            <div>
+                                <span class="font-bold text-indigo-600 text-lg">I / You / We / They</span>
+                                <p class="text-xs text-slate-500">1人称・2人称・複数主語</p>
+                            </div>
+                            <span class="text-lg font-mono font-bold bg-indigo-100 text-indigo-800 px-3 py-1 rounded-md">have + p.p.</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200 flex items-center justify-between">
+                            <div>
+                                <span class="font-bold text-rose-600 text-lg">He / She / It / [単数名詞]</span>
+                                <p class="text-xs text-slate-500">三人称単数 (3rd person singular)</p>
+                            </div>
+                            <span class="text-lg font-mono font-bold bg-rose-100 text-rose-800 px-3 py-1 rounded-md">has + p.p.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Basic Sentence Structures -->
+                <div class="border border-slate-200 rounded-xl p-5">
+                    <h4 class="font-bold text-slate-800 mb-3">文の基本構造（肯定文・否定文・疑問文）</h4>
+                    <div class="space-y-3 text-sm">
+                        <div class="p-3 bg-slate-50 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <span class="bg-indigo-600 text-white text-xs px-2 py-0.5 rounded font-bold mr-2">肯定文</span>
+                                <span class="font-mono font-semibold">Subject + have/has + 過去分詞 ...</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-slate-600 text-xs">
+                                <span>I <strong>have finished</strong> my homework.</span>
+                                <button onclick="speak('I have finished my homework.')" class="text-indigo-600 hover:text-indigo-800"><i class="fa-solid fa-volume-high"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-slate-50 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <span class="bg-rose-600 text-white text-xs px-2 py-0.5 rounded font-bold mr-2">否定文</span>
+                                <span class="font-mono font-semibold">Subject + have/has + NOT + 過去分詞 ...</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-slate-600 text-xs">
+                                <span>She <strong>has not (haven't) arrived</strong> yet.</span>
+                                <button onclick="speak('She has not arrived yet.')" class="text-indigo-600 hover:text-indigo-800"><i class="fa-solid fa-volume-high"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-slate-50 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <span class="bg-amber-600 text-white text-xs px-2 py-0.5 rounded font-bold mr-2">疑問文</span>
+                                <span class="font-mono font-semibold">Have/Has + Subject + 過去分詞 ...?</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-slate-600 text-xs">
+                                <span><strong>Have</strong> you <strong>seen</strong> this movie?</span>
+                                <button onclick="speak('Have you seen this movie?')" class="text-indigo-600 hover:text-indigo-800"><i class="fa-solid fa-volume-high"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= UNIT 13 TAB ================= -->
+        <section id="view-unit13" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between border-b pb-4 mb-4">
+                    <div>
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded">Unit 13</span>
+                        <h2 class="text-2xl font-bold text-slate-800 mt-1">完了・結果 (Completion & Result)</h2>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Rule Explanation -->
+                    <div class="bg-indigo-50/60 rounded-xl p-5 border border-indigo-100">
+                        <h3 class="font-bold text-indigo-900 text-base mb-2">キーとなる副詞と配置ルール</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm mt-3">
+                            <div class="bg-white p-3 rounded-lg border border-indigo-100">
+                                <span class="font-bold text-indigo-600">just</span> (たった今)
+                                <p class="text-xs text-slate-500 mt-1">have と 過去分詞 の間に挟む</p>
+                                <p class="text-xs font-mono text-slate-700 mt-1">I have <strong>just</strong> eaten lunch.</p>
+                                <p class="text-xs text-slate-400">（私はたった今昼食を食べたところです。）</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-indigo-100">
+                                <span class="font-bold text-indigo-600">already</span> (すでに・もう)
+                                <p class="text-xs text-slate-500 mt-1">肯定文で maintain/have と 過去分詞の間</p>
+                                <p class="text-xs font-mono text-slate-700 mt-1">He has <strong>already</strong> left.</p>
+                                <p class="text-xs text-slate-400">（彼はもう出発してしまいました。）</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-indigo-100">
+                                <span class="font-bold text-indigo-600">yet</span> (まだ〜ない / もう〜したか)
+                                <p class="text-xs text-slate-500 mt-1">否定文・疑問文の文末に置く</p>
+                                <p class="text-xs font-mono text-slate-700 mt-1">I haven't read it <strong>yet</strong>.</p>
+                                <p class="text-xs text-slate-400">（私はまだそれを読んでいません。）</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Have been to vs Have gone to Focus -->
+                    <div class="bg-amber-50 rounded-xl p-5 border border-amber-200">
+                        <h3 class="font-bold text-amber-900 text-base mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-600"></i> 最重要比較: `have been to` vs `have gone to`
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mt-3">
+                            <div class="bg-white p-4 rounded-lg border border-amber-200 shadow-sm">
+                                <span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded font-bold">have been to</span>
+                                <h4 class="font-bold text-slate-800 mt-1 text-base">〜へ行ったことがある（経験・行って戻ってきた）</h4>
+                                <p class="text-xs text-slate-600 mt-1">話し手は今ここに居ます。</p>
+                                <p class="font-mono text-slate-800 text-xs mt-2 bg-slate-50 p-2 rounded">She has <strong>been to</strong> Paris twice.</p>
+                                <p class="text-xs text-slate-500 mt-0.5">（彼女はパリに2回行ったことがあります。）</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-amber-200 shadow-sm">
+                                <span class="bg-rose-600 text-white text-xs px-2 py-0.5 rounded font-bold">have gone to</span>
+                                <h4 class="font-bold text-slate-800 mt-1 text-base">〜へ行ってしまった（結果・ここには居ない）</h4>
+                                <p class="text-xs text-slate-600 mt-1">目的地に向かったままで戻っていません。</p>
+                                <p class="font-mono text-slate-800 text-xs mt-2 bg-slate-50 p-2 rounded">She has <strong>gone to</strong> Paris.</p>
+                                <p class="text-xs text-slate-500 mt-0.5">（彼女はパリに行ってしまいました［今ここにはいません］。）</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= UNIT 14 TAB ================= -->
+        <section id="view-unit14" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between border-b pb-4 mb-4">
+                    <div>
+                        <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded">Unit 14</span>
+                        <h2 class="text-2xl font-bold text-slate-800 mt-1">経験 (Experience)</h2>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <p class="text-slate-600 text-sm">「〜したことがある」「一度も〜ない」という人生の経験を表現します。</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <h3 class="font-bold text-slate-800 mb-2">よく使われる頻度表現（回数）</h3>
+                            <ul class="space-y-2 text-xs">
+                                <li class="flex justify-between border-b pb-1"><span>1回</span><span class="font-mono font-bold text-indigo-600">once</span></li>
+                                <li class="flex justify-between border-b pb-1"><span>2回</span><span class="font-mono font-bold text-indigo-600">twice</span></li>
+                                <li class="flex justify-between border-b pb-1"><span>3回以上</span><span class="font-mono font-bold text-indigo-600">three times, four times...</span></li>
+                                <li class="flex justify-between border-b pb-1"><span>以前に</span><span class="font-mono font-bold text-indigo-600">before</span></li>
+                                <li class="flex justify-between"><span>何回か</span><span class="font-mono font-bold text-indigo-600">several times / many times</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <h3 class="font-bold text-slate-800 mb-2">疑問文と否定文での強調</h3>
+                            <div class="space-y-3 text-xs">
+                                <div>
+                                    <span class="font-bold text-amber-700">ever</span>（疑問文で「今までに」）
+                                    <p class="font-mono text-slate-700 mt-0.5">Have you <strong>ever</strong> eaten sushi?</p>
+                                    <p class="text-slate-500">（今までに寿司を食べたことがありますか？）</p>
+                                </div>
+                                <div>
+                                    <span class="font-bold text-rose-700">never</span>（否定文で「一度も〜ない」）
+                                    <p class="font-mono text-slate-700 mt-0.5">I have <strong>never</strong> visited Hokkaido.</p>
+                                    <p class="text-slate-500">（私は北海道を一度も訪れたことがありません。）</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= UNIT 15 TAB ================= -->
+        <section id="view-unit15" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between border-b pb-4 mb-4">
+                    <div>
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded">Unit 15</span>
+                        <h2 class="text-2xl font-bold text-slate-800 mt-1">継続 & 現在完了進行形 (Continuation & Continuous)</h2>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- for vs since explanation -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl">
+                            <span class="bg-emerald-600 text-white font-bold text-xs px-2 py-0.5 rounded">for + 期間</span>
+                            <h3 class="font-bold text-emerald-900 mt-2">〜の間（時間の長さ・幅）</h3>
+                            <p class="text-xs text-slate-600 mt-1">数字や期間を表す言葉が後ろに続きます。</p>
+                            <ul class="mt-2 text-xs font-mono text-emerald-800 space-y-1">
+                                <li>• for three hours（3時間の間）</li>
+                                <li>• for two years（2年間）</li>
+                                <li>• for a long time（長い間）</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl">
+                            <span class="bg-blue-600 text-white font-bold text-xs px-2 py-0.5 rounded">since + 起点</span>
+                            <h3 class="font-bold text-blue-900 mt-2">〜以来（過去の特定の時点）</h3>
+                            <p class="text-xs text-slate-600 mt-1">スタート地点となる過去の日時や過去形節が続きます。</p>
+                            <ul class="mt-2 text-xs font-mono text-blue-800 space-y-1">
+                                <li>• since yesterday（昨日からずっと）</li>
+                                <li>• since 2020（2020年から）</li>
+                                <li>• since I was a child（子供のとき以来）</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- State vs Action Verbs -->
+                    <div class="border border-slate-200 rounded-xl p-5 bg-slate-50">
+                        <h3 class="font-bold text-slate-800 text-base mb-2">現在完了形 vs 現在完了進行形（状態動詞と動作動詞）</h3>
+                        <p class="text-xs text-slate-600 mb-4">継続を表す際、動詞の種類によって形が変わります！</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                            <div class="bg-white p-4 rounded-lg border border-slate-200">
+                                <span class="font-bold text-indigo-600">1. 状態動詞（State Verbs）</span>
+                                <p class="text-xs text-slate-500 mt-1">know, live, have, want, like など</p>
+                                <p class="text-xs font-semibold text-slate-700 mt-2">→ 通常の現在完了形 (`have + p.p.`) を使用</p>
+                                <div class="bg-indigo-50 p-2 rounded text-xs mt-2 font-mono">
+                                    I have known him for five years.
+                                </div>
+                                <p class="text-xs text-slate-500 mt-1">（私は彼を5年間知っています。）※ knowing とはしない</p>
+                            </div>
+
+                            <div class="bg-white p-4 rounded-lg border border-slate-200">
+                                <span class="font-bold text-purple-600">2. 動作動詞（Action Verbs）</span>
+                                <p class="text-xs text-slate-500 mt-1">study, play, rain, wait, run など</p>
+                                <p class="text-xs font-semibold text-purple-700 mt-2">→ 現在完了進行形 (`have/has been -ing`) を使用</p>
+                                <div class="bg-purple-50 p-2 rounded text-xs mt-2 font-mono">
+                                    It has been raining since this morning.
+                                </div>
+                                <p class="text-xs text-slate-500 mt-1">（今朝からずっと雨が降り続いています。）</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VERBS & SPEED GAME TAB ================= -->
+        <section id="view-verbs" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between border-b pb-4 mb-4">
+                    <div>
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded">動詞マスター</span>
+                        <h2 class="text-2xl font-bold text-slate-800 mt-1">必修動詞活用表 & 4秒スピードフラッシュ</h2>
+                    </div>
+                </div>
+
+                <!-- 1. Verb Conjugation Table FIRST -->
+                <div class="mb-10">
+                    <h3 class="font-bold text-slate-800 text-lg mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-indigo-600"></i> 中学・高校必修 不規則動詞活用一覧表
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-3">現在完了形で使用する過去分詞(Past Participle)の形を完璧に暗記しよう！</p>
+                    
+                    <div class="overflow-x-auto max-h-96 custom-scrollbar border border-slate-200 rounded-xl">
+                        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                            <thead class="bg-slate-100 sticky top-0 font-bold text-slate-700 border-b border-slate-200">
+                                <tr>
+                                    <th class="p-3">原形 (Base)</th>
+                                    <th class="p-3">過去形 (Past)</th>
+                                    <th class="p-3 text-indigo-600 bg-indigo-50">過去分詞 (p.p.)</th>
+                                    <th class="p-3">現在進行形 (-ing)</th>
+                                    <th class="p-3">意味 (Meaning)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="verbTableBody" class="divide-y divide-slate-100 font-mono">
+                                <!-- Populated dynamically by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 2. Speed Game BELOW the Verb Table -->
+                <div class="border-t-2 border-slate-100 pt-8">
+                    <div class="bg-gradient-to-br from-indigo-900 to-purple-900 text-white rounded-2xl p-6 sm:p-8 shadow-xl">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                            <div>
+                                <span class="bg-amber-400 text-slate-900 font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider">Speed Drill</span>
+                                <h3 class="text-2xl font-extrabold mt-1">⚡ 4秒極限スピード特訓！過去分詞フラッシュ</h3>
+                                <p class="text-xs text-indigo-200 mt-1">1問につき制限時間4秒！原形に対応する正しい「過去分詞 (p.p.)」を瞬時に選べ！</p>
+                            </div>
+                            <div id="gameScoreBoard" class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl text-center border border-white/20">
+                                <span class="text-xs text-indigo-200 block">SCORE</span>
+                                <span id="gameScoreText" class="text-2xl font-black text-amber-300">0 / 10</span>
+                            </div>
+                        </div>
+
+                        <!-- Game Playing Screen -->
+                        <div id="gameArea" class="bg-white/5 border border-white/10 rounded-xl p-6 text-center space-y-6">
+                            <div id="gameStartPrompt" class="py-8 space-y-4">
+                                <i class="fa-solid fa-stopwatch text-6xl text-amber-400 animate-bounce"></i>
+                                <h4 class="text-xl font-bold">全10問の速答トレーニング</h4>
+                                <p class="text-xs text-indigo-200 max-w-md mx-auto">直感とスピードが試されます。間違えても何度でもやり直せます！</p>
+                                <button onclick="startGame()" class="bg-amber-400 hover:bg-amber-300 text-slate-900 text-base font-extrabold px-8 py-3 rounded-xl transition shadow-lg">
+                                    ゲームをスタート！ <i class="fa-solid fa-play ml-1"></i>
+                                </button>
+                            </div>
+
+                            <div id="gameActiveScreen" class="hidden space-y-6">
+                                <!-- Timer Bar -->
+                                <div class="w-full bg-white/20 h-3 rounded-full overflow-hidden">
+                                    <div id="gameTimerBar" class="bg-amber-400 h-full w-full transition-all duration-100 ease-linear"></div>
+                                </div>
+
+                                <div class="space-y-1">
+                                    <span class="text-xs text-indigo-300 font-mono">TARGET VERB</span>
+                                    <div id="gameCurrentBase" class="text-4xl font-black tracking-widest text-white">go</div>
+                                    <p id="gameCurrentMeaning" class="text-xs text-indigo-200">（行く）</p>
+                                </div>
+
+                                <div id="gameOptionsGrid" class="grid grid-cols-2 gap-3 max-w-md mx-auto">
+                                    <!-- Dynamic Option Buttons -->
+                                </div>
+                            </div>
+
+                            <!-- Game Result Screen -->
+                            <div id="gameResultScreen" class="hidden py-6 space-y-4">
+                                <div id="gameResultIcon" class="text-5xl">🏆</div>
+                                <h4 id="gameResultTitle" class="text-2xl font-bold">全問クリア！</h4>
+                                <p id="gameResultDetail" class="text-sm text-indigo-200">素晴らしいスピードと精度です！</p>
+                                <button onclick="startGame()" class="bg-amber-400 text-slate-900 font-bold px-6 py-2.5 rounded-xl transition hover:bg-amber-300">
+                                    もう一度挑戦する <i class="fa-solid fa-rotate-right ml-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= FOR VS SINCE TAB ================= -->
+        <section id="view-forsince" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between border-b pb-4 mb-4">
+                    <div>
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded">識別特訓</span>
+                        <h2 class="text-2xl font-bold text-slate-800 mt-1">for vs since 完全識別ドリル</h2>
+                    </div>
+                    <button onclick="gradeForSinceQuiz()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-xl transition text-sm flex items-center gap-1.5 shadow-sm">
+                        <i class="fa-solid fa-check"></i> 採点をする
+                    </button>
+                </div>
+
+                <p class="text-slate-600 text-sm mb-4">空欄に入る最も適切なものを `for` または `since` から選んでください。採点後に<strong>詳しい理由解説</strong>が表示されます。</p>
+
+                <div id="forSinceQuizList" class="space-y-4">
+                    <!-- Dynamic quiz items populated via JS -->
+                </div>
+
+                <!-- Score Banner and Retry Option -->
+                <div id="forSinceScoreBanner" class="hidden p-5 rounded-xl bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
+                    <div>
+                        <span class="text-xs text-slate-400 block">RESULT</span>
+                        <div class="text-2xl font-bold">正解数: <span id="forSinceScoreText" class="text-emerald-400">0 / 0</span></div>
+                    </div>
+                    <button onclick="resetForSinceQuiz()" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold px-5 py-2.5 rounded-xl transition text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-rotate-right"></i> もう一度挑戦する
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= WORKSHEETS TAB ================= -->
+        <section id="view-worksheets" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b pb-4 mb-4 gap-2">
+                    <div>
+                        <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded">問題数3倍拡大版</span>
+                        <h2 class="text-2xl font-bold text-slate-800 mt-1">Unit 13 - 15 総合ワークシート</h2>
+                        <p class="text-slate-500 text-xs mt-0.5">全問題に英語本文と日本語訳（小文字表記）を掲載！</p>
+                    </div>
+
+                    <!-- Worksheet Unit Switcher -->
+                    <div class="flex bg-slate-100 p-1 rounded-xl space-x-1 self-start sm:self-auto">
+                        <button onclick="switchWorksheetSub('ws13')" id="sub-ws13" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-white shadow-sm text-indigo-600">
+                            Unit 13 (9問)
+                        </button>
+                        <button onclick="switchWorksheetSub('ws14')" id="sub-ws14" class="px-3 py-1.5 text-xs font-bold rounded-lg text-slate-600 hover:text-slate-900">
+                            Unit 14 (9問)
+                        </button>
+                        <button onclick="switchWorksheetSub('ws15')" id="sub-ws15" class="px-3 py-1.5 text-xs font-bold rounded-lg text-slate-600 hover:text-slate-900">
+                            Unit 15 (9問)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Container for Worksheet Sub-views -->
+                <div id="worksheetContentContainer">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= THINKING & CREATIVE TAB ================= -->
+        <section id="view-thinking" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between border-b pb-4 mb-4">
+                    <div>
+                        <span class="bg-purple-100 text-purple-800 text-xs font-bold px-2.5 py-1 rounded">思考力・記述発信</span>
+                        <h2 class="text-2xl font-bold text-slate-800 mt-1">現在完了形を使って自分自身を英語で表現しよう</h2>
+                        <p class="text-xs text-slate-500 mt-1">構文ヒントを参考に、あなた自身の経験や継続期間を英語で書きましょう！</p>
+                    </div>
+                </div>
+
+                <div class="space-y-8">
+                    <!-- Part 1: Experience -->
+                    <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-5">
+                        <h3 class="font-bold text-slate-800 text-base border-b border-slate-200 pb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-star text-amber-500"></i> Part 1: あなたの「経験」を伝える (Experience)
+                        </h3>
+
+                        <!-- Prompt 1 -->
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <label class="block font-bold text-slate-800 text-sm">
+                                質問１：これまでに訪れたことがある場所について教えてください。（国や都市、テーマパークなど）
+                            </label>
+                            <div class="bg-indigo-50 border border-indigo-100 p-2.5 rounded-lg text-xs text-indigo-900 font-medium">
+                                <i class="fa-solid fa-lightbulb text-indigo-600 mr-1"></i> <strong>【構文ヒント】</strong>
+                                <span class="font-mono">I have been to [場所] [回数 (once / twice / many times)].</span>
+                            </div>
+                            <textarea id="think_exp_1" rows="2" class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="Write your own sentence in English here..."></textarea>
+                            
+                            <div class="pt-1">
+                                <button onclick="toggleModelAnswer('model_exp_1')" class="text-xs text-indigo-600 font-bold hover:underline">
+                                    <i class="fa-solid fa-eye"></i> モデル回答（参考例）を表示 / 非表示
+                                </button>
+                                <div id="model_exp_1" class="hidden mt-2 p-3 bg-slate-100 rounded-lg text-xs space-y-1">
+                                    <div class="flex items-center justify-between">
+                                        <p class="font-mono font-semibold text-slate-800">I have been to Kyoto three times.</p>
+                                        <button onclick="speak('I have been to Kyoto three times.')" class="text-indigo-600"><i class="fa-solid fa-volume-high"></i></button>
+                                    </div>
+                                    <p class="text-slate-500 text-xs">（訳：私は京都に3回行ったことがあります。）</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Prompt 2 -->
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <label class="block font-bold text-slate-800 text-sm">
+                                質問２：これまでに食べたことがある珍しい食べ物、または挑戦したことについて教えてください。
+                            </label>
+                            <div class="bg-indigo-50 border border-indigo-100 p-2.5 rounded-lg text-xs text-indigo-900 font-medium">
+                                <i class="fa-solid fa-lightbulb text-indigo-600 mr-1"></i> <strong>【構文ヒント】</strong>
+                                <span class="font-mono">I have eaten [食べ物] before. / I have tried [挑戦したこと].</span>
+                            </div>
+                            <textarea id="think_exp_2" rows="2" class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="Write your own sentence in English here..."></textarea>
+                            
+                            <div class="pt-1">
+                                <button onclick="toggleModelAnswer('model_exp_2')" class="text-xs text-indigo-600 font-bold hover:underline">
+                                    <i class="fa-solid fa-eye"></i> モデル回答（参考例）を表示 / 非表示
+                                </button>
+                                <div id="model_exp_2" class="hidden mt-2 p-3 bg-slate-100 rounded-lg text-xs space-y-1">
+                                    <div class="flex items-center justify-between">
+                                        <p class="font-mono font-semibold text-slate-800">I have eaten raw fish (sushi) many times before.</p>
+                                        <button onclick="speak('I have eaten raw fish many times before.')" class="text-indigo-600"><i class="fa-solid fa-volume-high"></i></button>
+                                    </div>
+                                    <p class="text-slate-500 text-xs">（訳：私は以前に何度も生魚（寿司）を食べたことがあります。）</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Part 2: Continuation -->
+                    <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-5">
+                        <h3 class="font-bold text-slate-800 text-base border-b border-slate-200 pb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-clock-rotate-left text-emerald-600"></i> Part 2: あなたの「継続」と目標を伝える (Continuation & Goals)
+                        </h3>
+
+                        <!-- Prompt 1 -->
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <label class="block font-bold text-slate-800 text-sm">
+                                質問１：英語を勉強し始めてからどのくらいの期間が経ちますか？
+                            </label>
+                            <div class="bg-emerald-50 border border-emerald-100 p-2.5 rounded-lg text-xs text-emerald-900 font-medium">
+                                <i class="fa-solid fa-lightbulb text-emerald-600 mr-1"></i> <strong>【構文ヒント】</strong>
+                                <span class="font-mono">I have studied English for [期間 (e.g. three years)] / since [起点 (e.g. 2021)].</span>
+                            </div>
+                            <textarea id="think_con_1" rows="2" class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="Write your own sentence in English here..."></textarea>
+                            
+                            <div class="pt-1">
+                                <button onclick="toggleModelAnswer('model_con_1')" class="text-xs text-indigo-600 font-bold hover:underline">
+                                    <i class="fa-solid fa-eye"></i> モデル回答（参考例）を表示 / 非表示
+                                </button>
+                                <div id="model_con_1" class="hidden mt-2 p-3 bg-slate-100 rounded-lg text-xs space-y-1">
+                                    <div class="flex items-center justify-between">
+                                        <p class="font-mono font-semibold text-slate-800">I have studied English for three years.</p>
+                                        <button onclick="speak('I have studied English for three years.')" class="text-indigo-600"><i class="fa-solid fa-volume-high"></i></button>
+                                    </div>
+                                    <p class="text-slate-500 text-xs">（訳：私は3年間英語を勉強しています。）</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Prompt 2 -->
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <label class="block font-bold text-slate-800 text-sm">
+                                質問２：茨城県（あるいは現在の町・家）にどのくらいの期間住んでいますか？
+                            </label>
+                            <div class="bg-emerald-50 border border-emerald-100 p-2.5 rounded-lg text-xs text-emerald-900 font-medium">
+                                <i class="fa-solid fa-lightbulb text-emerald-600 mr-1"></i> <strong>【構文ヒント】</strong>
+                                <span class="font-mono">I have lived in Ibaraki for [期間] / since [年・生まれた時 (e.g. I was born)].</span>
+                            </div>
+                            <textarea id="think_con_2" rows="2" class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="Write your own sentence in English here..."></textarea>
+                            
+                            <div class="pt-1">
+                                <button onclick="toggleModelAnswer('model_con_2')" class="text-xs text-indigo-600 font-bold hover:underline">
+                                    <i class="fa-solid fa-eye"></i> モデル回答（参考例）を表示 / 非表示
+                                </button>
+                                <div id="model_con_2" class="hidden mt-2 p-3 bg-slate-100 rounded-lg text-xs space-y-1">
+                                    <div class="flex items-center justify-between">
+                                        <p class="font-mono font-semibold text-slate-800">I have lived in Ibaraki since I was born.</p>
+                                        <button onclick="speak('I have lived in Ibaraki since I was born.')" class="text-indigo-600"><i class="fa-solid fa-volume-high"></i></button>
+                                    </div>
+                                    <p class="text-slate-500 text-xs">（訳：私は生まれてからずっと茨城県に住んでいます。）</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- NEW Prompt 3 -->
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <label class="block font-bold text-slate-800 text-sm">
+                                質問３：部活動、習い事、または趣味で長く続けていることと、その期間について教えてください。
+                            </label>
+                            <div class="bg-emerald-50 border border-emerald-100 p-2.5 rounded-lg text-xs text-emerald-900 font-medium">
+                                <i class="fa-solid fa-lightbulb text-emerald-600 mr-1"></i> <strong>【構文ヒント】</strong>
+                                <span class="font-mono">I have played/practiced [部活・習い事] for [期間]. / I have been practicing [部活] since last year.</span>
+                            </div>
+                            <textarea id="think_con_3" rows="2" class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="Write your own sentence in English here..."></textarea>
+                            
+                            <div class="pt-1">
+                                <button onclick="toggleModelAnswer('model_con_3')" class="text-xs text-indigo-600 font-bold hover:underline">
+                                    <i class="fa-solid fa-eye"></i> モデル回答（参考例）を表示 / 非表示
+                                </button>
+                                <div id="model_con_3" class="hidden mt-2 p-3 bg-slate-100 rounded-lg text-xs space-y-1">
+                                    <div class="flex items-center justify-between">
+                                        <p class="font-mono font-semibold text-slate-800">I have played soccer for five years, and I want to keep playing in high school.</p>
+                                        <button onclick="speak('I have played soccer for five years, and I want to keep playing in high school.')" class="text-indigo-600"><i class="fa-solid fa-volume-high"></i></button>
+                                    </div>
+                                    <p class="text-slate-500 text-xs">（訳：私は5年間サッカーを続けており、高校でも続けたいです。）</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- JavaScript Logic Section -->
+    <script>
+        let isAudioEnabled = true;
+
+        function toggleAudioGlobal() {
+            isAudioEnabled = !isAudioEnabled;
+            const btn = document.getElementById('audioToggleBtn');
+            if (isAudioEnabled) {
+                btn.innerHTML = `<i class="fa-solid fa-volume-high"></i> 音声読み上げ: ON`;
+                btn.className = "bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold px-3 py-1.5 rounded-lg transition shadow-sm flex items-center gap-1.5";
+            } else {
+                btn.innerHTML = `<i class="fa-solid fa-volume-xmark"></i> 音声読み上げ: OFF`;
+                btn.className = "bg-slate-300 text-slate-700 font-bold px-3 py-1.5 rounded-lg transition shadow-sm flex items-center gap-1.5";
+            }
+        }
+
+        function speak(text) {
+            if (!isAudioEnabled) return;
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+            const target = document.getElementById('view-' + tabId);
+            if (target) target.classList.remove('hidden');
+
+            const btn = document.getElementById('tab-' + tabId);
+            if (btn) btn.classList.add('active');
+        }
+
+        function toggleModelAnswer(id) {
+            const el = document.getElementById(id);
+            if (el) el.classList.toggle('hidden');
+        }
+
+        const VERB_DATA = [
+            { base: 'be', past: 'was / were', pp: 'been', ing: 'being', mean: '〜である・存在する' },
+            { base: 'go', past: 'went', pp: 'gone', ing: 'going', mean: '行く' },
+            { base: 'see', past: 'saw', pp: 'seen', ing: 'seeing', mean: '見る・会う' },
+            { base: 'eat', past: 'ate', pp: 'eaten', ing: 'eating', mean: '食べる' },
+            { base: 'write', past: 'wrote', pp: 'written', ing: 'writing', mean: '書く' },
+            { base: 'take', past: 'took', pp: 'taken', ing: 'taking', mean: '取る・持っていく' },
+            { base: 'read', past: 'read', pp: 'read', ing: 'reading', mean: '読む' },
+            { base: 'do', past: 'did', pp: 'done', ing: 'doing', mean: 'する' },
+            { base: 'make', past: 'made', pp: 'made', ing: 'making', mean: '作る' },
+            { base: 'have', past: 'had', pp: 'had', ing: 'having', mean: '持っている・食べる' },
+            { base: 'buy', past: 'bought', pp: 'bought', ing: 'buying', mean: '買う' },
+            { base: 'come', past: 'came', pp: 'come', ing: 'coming', mean: '来る' },
+            { base: 'run', past: 'ran', pp: 'run', ing: 'running', mean: '走る' },
+            { base: 'speak', past: 'spoke', pp: 'spoken', ing: 'speaking', mean: '話す' },
+            { base: 'know', past: 'knew', pp: 'known', ing: 'knowing', mean: '知っている' },
+            { base: 'finish', past: 'finished', pp: 'finished', ing: 'finishing', mean: '終える（規則動詞）' },
+            { base: 'study', past: 'studied', pp: 'studied', ing: 'studying', mean: '勉強する（規則動詞）' },
+            { base: 'live', past: 'lived', pp: 'lived', ing: 'living', mean: '住む（規則動詞）' }
+        ];
+
+        function populateVerbTable() {
+            const tbody = document.getElementById('verbTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = VERB_DATA.map(v => `
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="p-3 font-bold text-slate-800">${v.base}</td>
+                    <td class="p-3 text-slate-600">${v.past}</td>
+                    <td class="p-3 font-bold text-indigo-700 bg-indigo-50/50">${v.pp}</td>
+                    <td class="p-3 text-slate-500">${v.ing}</td>
+                    <td class="p-3 text-slate-700 font-sans">${v.mean}</td>
+                </tr>
+            `).join('');
+        }
+
+        let gameQueue = [];
+        let gameCurrentIdx = 0;
+        let gameScore = 0;
+        let gameTimer = null;
+        let gameTimeLeft = 4;
+
+        function startGame() {
+            document.getElementById('gameStartPrompt').classList.add('hidden');
+            document.getElementById('gameResultScreen').classList.add('hidden');
+            document.getElementById('gameActiveScreen').classList.remove('hidden');
+
+            // Shuffle irregular verbs
+            gameQueue = [...VERB_DATA].sort(() => Math.random() - 0.5).slice(0, 10);
+            gameCurrentIdx = 0;
+            gameScore = 0;
+            updateGameScoreText();
+            nextGameQuestion();
+        }
+
+        function updateGameScoreText() {
+            document.getElementById('gameScoreText').textContent = `${gameScore} / 10`;
+        }
+
+        function nextGameQuestion() {
+            if (gameCurrentIdx >= gameQueue.length) {
+                finishGame();
+                return;
+            }
+
+            const current = gameQueue[gameCurrentIdx];
+            document.getElementById('gameCurrentBase').textContent = current.base;
+            document.getElementById('gameCurrentMeaning').textContent = `（${current.mean}）`;
+
+            // Choices creation (1 correct p.p., 3 distractors)
+            let options = [current.pp];
+            let distractors = VERB_DATA.filter(v => v.pp !== current.pp).map(v => v.pp);
+            distractors = distractors.sort(() => Math.random() - 0.5).slice(0, 3);
+            options = [...options, ...distractors].sort(() => Math.random() - 0.5);
+
+            const grid = document.getElementById('gameOptionsGrid');
+            grid.innerHTML = options.map(opt => `
+                <button onclick="handleGameAnswer('${opt}', '${current.pp}')" 
+                        class="bg-white/10 hover:bg-white/20 text-white font-mono font-bold text-lg py-3 px-4 rounded-xl border border-white/20 transition active:scale-95">
+                    ${opt}
+                </button>
+            `).join('');
+
+            // Timer setup (4 seconds)
+            clearInterval(gameTimer);
+            gameTimeLeft = 4;
+            const bar = document.getElementById('gameTimerBar');
+            bar.style.width = '100%';
+
+            const startTime = Date.now();
+            gameTimer = setInterval(() => {
+                const elapsed = (Date.now() - startTime) / 1000;
+                const remaining = Math.max(0, 4 - elapsed);
+                bar.style.width = `${(remaining / 4) * 100}%`;
+
+                if (remaining <= 0) {
+                    clearInterval(gameTimer);
+                    handleGameAnswer(null, current.pp);
+                }
+            }, 50);
+        }
+
+        function handleGameAnswer(selected, correct) {
+            clearInterval(gameTimer);
+            if (selected === correct) {
+                gameScore++;
+            }
+            gameCurrentIdx++;
+            updateGameScoreText();
+            nextGameQuestion();
+        }
+
+        function finishGame() {
+            document.getElementById('gameActiveScreen').classList.add('hidden');
+            document.getElementById('gameResultScreen').classList.remove('hidden');
+
+            const title = document.getElementById('gameResultTitle');
+            const detail = document.getElementById('gameResultDetail');
+            const icon = document.getElementById('gameResultIcon');
+
+            if (gameScore === 10) {
+                icon.textContent = '🏆';
+                title.textContent = 'PERFECT! 全問正解！';
+                detail.textContent = '素晴らしい動詞活用のスピードと精度です！完了形マスターです！';
+            } else if (gameScore >= 7) {
+                icon.textContent = '🌟';
+                title.textContent = `GOOD JOB! ${gameScore}問正解！`;
+                detail.textContent = 'かなり良いペースです！満点を目指してもう一度チャレンジしてみましょう！';
+            } else {
+                icon.textContent = '📖';
+                title.textContent = `正解数: ${gameScore} / 10`;
+                detail.textContent = '上の「必修動詞活用一覧表」でもう一度過去分詞を復習して挑戦しましょう！';
+            }
+        }
+
+        const FOR_SINCE_ITEMS = [
+            { id: 1, text: "I have lived in Hitachi [ ] five years.", choice: "for", ja: "私は5年間日立市に住んでいます。", exp: "「five years（5年間）」は『期間（時間の長さ）』を表すため for を用います。since は「いつから（起点）」を表す時に使います。" },
+            { id: 2, text: "She has been sick [ ] yesterday morning.", choice: "since", ja: "彼女は昨日の朝からずっと体調を崩しています。", exp: "「yesterday morning（昨日の朝）」は過去の『特定の起点（スタート地点）』を表すため since を用います。" },
+            { id: 3, text: "We have known each other [ ] 2018.", choice: "since", ja: "私達は2018年以来のお互いの知り合いです。", exp: "「2018（2018年）」は特定の年＝『過去の起点』を指すため since が正解です。" },
+            { id: 4, text: "He has studied English [ ] a long time.", choice: "for", ja: "彼は長い間英語を勉強しています。", exp: "「a long time（長い間）」は特定の過去の時点ではなく『期間』を表すため for を用います。" },
+            { id: 5, text: "It has been raining [ ] three hours.", choice: "for", ja: "3時間前から雨が降り続いています。", exp: "「three hours（3時間）」は時間の長さ＝『期間』を表すので for が正解です。" },
+            { id: 6, text: "They have played soccer [ ] they were children.", choice: "since", ja: "彼らは子供の時以来サッカーをしています。", exp: "「they were children（彼らが子供だった時）」という過去の節は『起点』を表すため since が正解です。" },
+            { id: 7, text: "My father has worked at this company [ ] last month.", choice: "since", ja: "私の父は先月からこの会社で働いています。", exp: "「last month（先月）」は過去の『起点』を指すため since を用います。" },
+            { id: 8, text: "I haven't seen Ken [ ] a week.", choice: "for", ja: "私は1週間ケンに会っていません。", exp: "「a week（1週間）」は『期間（時間の長さ）』を表すため for を用います。" }
+        ];
+
+        function renderForSinceQuiz() {
+            const container = document.getElementById('forSinceQuizList');
+            if (!container) return;
+            container.innerHTML = FOR_SINCE_ITEMS.map((item, idx) => `
+                <div class="p-4 border border-slate-200 rounded-xl bg-slate-50/50 space-y-2">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div class="text-sm font-semibold text-slate-800">
+                            <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded font-bold mr-2">Q${idx+1}</span>
+                            ${item.text.replace('[ ]', `
+                                <select id="forsince_select_${item.id}" class="border border-indigo-300 rounded px-2 py-1 bg-white font-mono text-indigo-700 font-bold focus:ring-2 focus:ring-indigo-500">
+                                    <option value="">-- 選択 --</option>
+                                    <option value="for">for</option>
+                                    <option value="since">since</option>
+                                </select>
+                            `)}
+                        </div>
+                        <button onclick="speak('${item.text.replace('[ ]', item.choice)}')" class="text-indigo-600 hover:text-indigo-800 text-xs self-end sm:self-auto">
+                            <i class="fa-solid fa-volume-high"></i> 音声
+                        </button>
+                    </div>
+
+                    <!-- Japanese translation (smaller font) -->
+                    <p class="text-xs text-slate-500 font-normal">（日本語訳: ${item.ja}）</p>
+
+                    <!-- Feedback and Explanation (Hidden until graded) -->
+                    <div id="forsince_exp_${item.id}" class="hidden mt-3 p-3 rounded-lg text-xs space-y-1"></div>
+                </div>
+            `).join('');
+        }
+
+        function gradeForSinceQuiz() {
+            let score = 0;
+            FOR_SINCE_ITEMS.forEach(item => {
+                const select = document.getElementById(`forsince_select_${item.id}`);
+                const expBox = document.getElementById(`forsince_exp_${item.id}`);
+                const val = select ? select.value : '';
+
+                expBox.classList.remove('hidden');
+                if (val === item.choice) {
+                    score++;
+                    expBox.className = "mt-3 p-3 rounded-lg text-xs bg-emerald-50 border border-emerald-200 text-emerald-900";
+                    expBox.innerHTML = `<div class="font-bold flex items-center gap-1 text-emerald-700"><i class="fa-solid fa-circle-check"></i> 正解！ (正解: ${item.choice})</div><p class="mt-1 text-slate-600">${item.exp}</p>`;
+                } else {
+                    expBox.className = "mt-3 p-3 rounded-lg text-xs bg-rose-50 border border-rose-200 text-rose-900";
+                    expBox.innerHTML = `<div class="font-bold flex items-center gap-1 text-rose-700"><i class="fa-solid fa-circle-xmark"></i> 不正解 (正解: ${item.choice})</div><p class="mt-1 text-slate-600"><strong>【理由解説】</strong> ${item.exp}</p>`;
+                }
+            });
+
+            const banner = document.getElementById('forSinceScoreBanner');
+            const text = document.getElementById('forSinceScoreText');
+            banner.classList.remove('hidden');
+            text.textContent = `${score} / ${FOR_SINCE_ITEMS.length}`;
+            banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function resetForSinceQuiz() {
+            FOR_SINCE_ITEMS.forEach(item => {
+                const select = document.getElementById(`forsince_select_${item.id}`);
+                const expBox = document.getElementById(`forsince_exp_${item.id}`);
+                if (select) select.value = '';
+                if (expBox) expBox.classList.add('hidden');
+            });
+            document.getElementById('forSinceScoreBanner').classList.add('hidden');
+        }
+
+        const WORKSHEET_DATA = {
+            ws13: {
+                unitTitle: "Unit 13: 完了・結果 (Completion & Result)",
+                items: [
+                    { id: 1, type: "dropdown", q: "I have [ ] finished my homework.", options: ["just", "yet", "ever"], answer: "just", ja: "私はたった今宿題を終えたところです。", exp: "just は「たった今」という意味で have と 過去分詞の間に挟みます。" },
+                    { id: 2, type: "dropdown", q: "Has she cleaned her room [ ]?", options: ["already", "yet", "never"], answer: "yet", ja: "彼女はもう部屋を掃除しましたか？", exp: "疑問文の文末で「もう〜しましたか」を表す時は yet を使います。" },
+                    { id: 3, type: "dropdown", q: "He has [ ] gone to London.", options: ["already", "yet", "since"], answer: "already", ja: "彼はすでにロンドンに行ってしまいました。", exp: "肯定文の have/has と 過去分詞の間に置き「すでに」を表すのは already です。" },
+                    { id: 4, type: "reorder", words: ["already", "cooked", "dinner", "has", "My mother"], answer: "My mother has already cooked dinner.", ja: "私の母はすでに夕食を料理し終えました。", exp: "語順: 主語 (My mother) + has + 副詞 (already) + 過去分詞 (cooked) + 目的語 (dinner)." },
+                    { id: 5, type: "reorder", words: ["not", "haven't", "the news", "read", "I", "yet"], answer: "I haven't read the news yet.", ja: "私はまだそのニュースを読んでいません。", exp: "否定文 + 文末 yet の語順になります。" },
+                    { id: 6, type: "reorder", words: ["the train", "Has", "arrived", "yet", "?"], answer: "Has the train arrived yet ?", ja: "電車はもう到着しましたか？", exp: "疑問文 Has + 主語 + 過去分詞 ... yet ? の構造です。" },
+                    { id: 7, type: "dropdown", q: "Ken is not here. He has [ ] to the library.", options: ["gone", "been", "go"], answer: "gone", ja: "ケンはここに居ません。彼は図書館に行ってしまいました。", exp: "ここにおらず「行ってしまった（結果）」を表すのは gone です。" },
+                    { id: 8, type: "dropdown", q: "They have [ ] bought a new car.", options: ["just", "yet", "ever"], answer: "just", ja: "彼らはちょうど新しい車を買ったところです。", exp: "完了を表す「ちょうど〜したところだ」は just です。" },
+                    { id: 9, type: "dropdown", q: "I have not received your letter [ ].", options: ["already", "yet", "just"], answer: "yet", ja: "私はまだあなたの手紙を受け取っていません。", exp: "否定文の文末で「まだ〜ない」を表すのは yet です。" }
+                ]
+            },
+            ws14: {
+                unitTitle: "Unit 14: 経験 (Experience)",
+                items: [
+                    { id: 1, type: "dropdown", q: "Have you [ ] seen a koala?", options: ["ever", "never", "yet"], answer: "ever", ja: "今までにコアラを見たことがありますか？", exp: "経験を尋ねる疑問文で「今までに」を表すのは ever です。" },
+                    { id: 2, type: "dropdown", q: "I have [ ] visited Hokkaido.", options: ["never", "ever", "yet"], answer: "never", ja: "私は一度も北海道を訪れたことがありません。", exp: "「一度も〜ない」という強い否定の経験を表すのは never です。" },
+                    { id: 3, type: "dropdown", q: "She has been to Kyoto [ ].", options: ["twice", "two", "second"], answer: "twice", ja: "彼女は京都に2回行ったことがあります。", exp: "回数を表す「2回」は twice です。" },
+                    { id: 4, type: "reorder", words: ["ever", "Have", "you", "climbing", "tried", "rock", "?"], answer: "Have you ever tried rock climbing ?", ja: "これまでにロッククライミングに挑戦したことがありますか？", exp: "Have + you + ever + 過去分詞 (tried) の順になります。" },
+                    { id: 5, type: "reorder", words: ["has", "this movie", "seen", "before", "Tom"], answer: "Tom has seen this movie before.", ja: "トムは以前にこの映画を見たことがあります。", exp: "文末に before（以前に）を置きます。" },
+                    { id: 6, type: "reorder", words: ["have", "never", "I", "such a big apple", "eaten"], answer: "I have never eaten such a big apple.", ja: "私はこんなに大きなリンゴを一度も食べたことがありません。", exp: "have + never + 過去分詞 (eaten) の順です。" },
+                    { id: 7, type: "dropdown", q: "My brother has climbed Mt. Fuji [ ].", options: ["once", "one time", "first"], answer: "once", ja: "私の兄は一度富士山に登ったことがあります。", exp: "「1回 / 一度」を表す副詞は once です。" },
+                    { id: 8, type: "dropdown", q: "We have eaten sushi [ ] times.", options: ["many", "much", "more"], answer: "many", ja: "私達は何度も寿司を食べたことがあります。", exp: "可算名詞 times の前には many をつけます。" },
+                    { id: 9, type: "dropdown", q: "How many times [ ] you been to Canada?", options: ["have", "has", "did"], answer: "have", ja: "あなたは何回カナダに行ったことがありますか？", exp: "主語 you に対する現在完了形の助動詞は have です。" }
+                ]
+            },
+            ws15: {
+                unitTitle: "Unit 15: 継続 & 完了進行形 (Continuation)",
+                items: [
+                    { id: 1, type: "dropdown", q: "I have lived here [ ] ten years.", options: ["for", "since", "from"], answer: "for", ja: "私はここに10年間住んでいます。", exp: "ten years（10年間）という「期間」を表すので for を使います。" },
+                    { id: 2, type: "dropdown", q: "She has been studying [ ] 8:00 AM.", options: ["since", "for", "in"], answer: "since", ja: "彼女は午前8時からずっと勉強しています。", exp: "8:00 AMという「過去の起点」を表すので since を用います。" },
+                    { id: 3, type: "dropdown", q: "It has been [ ] since this morning.", options: ["raining", "rained", "rain"], answer: "raining", ja: "今朝からずっと雨が降り続いています。", exp: "動作の継続を表す現在完了進行形 has been + -ing (raining) です。" },
+                    { id: 4, type: "reorder", words: ["for", "three hours", "played", "tennis", "have", "They"], answer: "They have played tennis for three hours.", ja: "彼らは3時間テニスをし続けています。", exp: "for + three hours (期間) を文末に配置します。" },
+                    { id: 5, type: "reorder", words: ["been", "has", "waiting", "She", "since noon"], answer: "She has been waiting since noon.", ja: "彼女は正午からずっと待ち続けています。", exp: "現在完了進行形 has been waiting + since noon (起点) です。" },
+                    { id: 6, type: "reorder", words: ["How long", "you", "known", "have", "him", "?"], answer: "How long have you known him ?", ja: "どのくらいの期間、彼と知り合いですか？", exp: "How long + have + 主語 + 過去分詞 (known) ? の疑問文です。" },
+                    { id: 7, type: "dropdown", q: "He has [ ] ill since last Sunday.", options: ["been", "be", "was"], answer: "been", ja: "彼は先週の日曜日からずっと体調を崩しています。", exp: "状態動詞 be の過去分詞 been を使います。" },
+                    { id: 8, type: "dropdown", q: "How long have you [ ] English?", options: ["been learning", "learn", "learned"], answer: "been learning", ja: "どのくらいの間、英語を習い続けていますか？", exp: "動作動詞 learn の継続は have you been learning の進行形が適切です。" },
+                    { id: 9, type: "dropdown", q: "We have known each other [ ] childhood.", options: ["since", "for", "during"], answer: "since", ja: "私達は子供時代からのお互いの知り合いです。", exp: "childhood（子供時代）という特定の過去の起点には since です。" }
+                ]
+            }
+        };
+
+        let currentWsKey = 'ws13';
+        let chipState = {}; // Store chip ordering state
+
+        function switchWorksheetSub(key) {
+            currentWsKey = key;
+            ['ws13', 'ws14', 'ws15'].forEach(k => {
+                const btn = document.getElementById('sub-' + k);
+                if (k === key) {
+                    btn.className = "px-3 py-1.5 text-xs font-bold rounded-lg bg-white shadow-sm text-indigo-600 border border-indigo-100";
+                } else {
+                    btn.className = "px-3 py-1.5 text-xs font-bold rounded-lg text-slate-600 hover:text-slate-900";
+                }
+            });
+            renderWorksheet();
+        }
+
+        function renderWorksheet() {
+            const container = document.getElementById('worksheetContentContainer');
+            if (!container) return;
+
+            const ws = WORKSHEET_DATA[currentWsKey];
+            let html = `
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <h3 class="font-bold text-slate-800 text-base">${ws.unitTitle}</h3>
+                        <button onclick="gradeCurrentWorksheet()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition shadow-sm flex items-center gap-1">
+                            <i class="fa-solid fa-check"></i> このユニットを採点
+                        </button>
+                    </div>
+
+                    <div class="space-y-4">
+            `;
+
+            ws.items.forEach((item, idx) => {
+                html += `<div class="bg-slate-50/60 border border-slate-200 rounded-xl p-4 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded">問 ${idx+1}</span>
+                        <span class="text-xs text-slate-400 font-mono">${item.type === 'dropdown' ? '空欄選択' : '語順並べ替え'}</span>
+                    </div>`;
+
+                if (item.type === 'dropdown') {
+                    const selectHTML = `
+                        <select id="ws_item_${item.id}" class="border border-indigo-300 rounded px-2 py-1 bg-white font-mono text-indigo-700 font-bold focus:ring-2 focus:ring-indigo-500">
+                            <option value="">-- 選択 --</option>
+                            ${item.options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+                        </select>
+                    `;
+                    html += `
+                        <div class="text-sm font-semibold text-slate-800 pt-1">
+                            ${item.q.replace('[ ]', selectHTML)}
+                        </div>
+                    `;
+                } else if (item.type === 'reorder') {
+                    // Interactive Chips
+                    const chipKey = `${currentWsKey}_${item.id}`;
+                    if (!chipState[chipKey]) {
+                        chipState[chipKey] = {
+                            pool: [...item.words].sort(() => Math.random() - 0.5),
+                            selected: []
+                        };
+                    }
+
+                    html += `
+                        <div class="space-y-2 pt-1">
+                            <p class="text-xs text-slate-500 font-medium">単語チップをタップして正しい英文を完成させてください：</p>
+                            
+                            <!-- Drop Target Zone -->
+                            <div id="target_zone_${chipKey}" class="min-h-[42px] p-2 bg-white rounded-lg border-2 border-dashed border-indigo-200 flex flex-wrap gap-1.5 items-center">
+                                ${chipState[chipKey].selected.map((w, wIdx) => `
+                                    <button onclick="removeChip('${chipKey}', ${wIdx})" class="chip bg-indigo-600 text-white font-mono text-xs px-2.5 py-1 rounded-md shadow-sm hover:bg-rose-500 transition">
+                                        ${w} <i class="fa-solid fa-xmark ml-1 text-[10px]"></i>
+                                    </button>
+                                `).join('')}
+                                ${chipState[chipKey].selected.length === 0 ? '<span class="text-xs text-slate-400 italic font-normal">ここにチップが入ります</span>' : ''}
+                            </div>
+
+                            <!-- Source Chips Pool -->
+                            <div class="flex flex-wrap gap-1.5">
+                                ${chipState[chipKey].pool.map((w, wIdx) => `
+                                    <button onclick="addChip('${chipKey}', ${wIdx})" class="chip bg-slate-200 text-slate-800 font-mono text-xs px-2.5 py-1 rounded-md hover:bg-indigo-100 hover:text-indigo-800 transition">
+                                        + ${w}
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // Japanese Sentence Translation (small font requirement)
+                html += `
+                    <p class="text-xs text-slate-500 mt-1 font-normal">（日本語訳: ${item.ja}）</p>
+                    <div id="ws_feedback_${item.id}" class="hidden mt-2 p-3 rounded-lg text-xs"></div>
+                </div>`;
+            });
+
+            html += `
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function addChip(chipKey, poolIdx) {
+            const state = chipState[chipKey];
+            if (!state) return;
+            const item = state.pool.splice(poolIdx, 1)[0];
+            state.selected.push(item);
+            renderWorksheet();
+        }
+
+        function removeChip(chipKey, selectedIdx) {
+            const state = chipState[chipKey];
+            if (!state) return;
+            const item = state.selected.splice(selectedIdx, 1)[0];
+            state.pool.push(item);
+            renderWorksheet();
+        }
+
+        function gradeCurrentWorksheet() {
+            const ws = WORKSHEET_DATA[currentWsKey];
+            let score = 0;
+
+            ws.items.forEach(item => {
+                const fb = document.getElementById(`ws_feedback_${item.id}`);
+                if (!fb) return;
+                fb.classList.remove('hidden');
+
+                let userAns = "";
+                if (item.type === 'dropdown') {
+                    const sel = document.getElementById(`ws_item_${item.id}`);
+                    userAns = sel ? sel.value : "";
+                } else if (item.type === 'reorder') {
+                    const chipKey = `${currentWsKey}_${item.id}`;
+                    userAns = chipState[chipKey] ? chipState[chipKey].selected.join(' ') : "";
+                }
+
+                if (userAns.trim() === item.answer.trim()) {
+                    score++;
+                    fb.className = "mt-2 p-3 rounded-lg text-xs bg-emerald-50 border border-emerald-200 text-emerald-900";
+                    fb.innerHTML = `<div class="font-bold flex items-center gap-1 text-emerald-700"><i class="fa-solid fa-circle-check"></i> 正解！</div><p class="mt-0.5 text-slate-600">${item.exp}</p>`;
+                } else {
+                    fb.className = "mt-2 p-3 rounded-lg text-xs bg-rose-50 border border-rose-200 text-rose-900";
+                    fb.innerHTML = `<div class="font-bold flex items-center gap-1 text-rose-700"><i class="fa-solid fa-circle-xmark"></i> 不正解 (正解例: <span class="font-mono font-bold">${item.answer}</span>)</div><p class="mt-0.5 text-slate-600">${item.exp}</p>`;
+                }
+            });
+        }
+
+        window.onload = function() {
+            populateVerbTable();
+            renderForSinceQuiz();
+            renderWorksheet();
+        };
+    </script>
+</body>
+</html>
